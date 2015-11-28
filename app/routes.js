@@ -215,6 +215,7 @@ module.exports = function(app) {
 	sample.oN        	= req.body.oN;       
 	sample.abP       	= req.body.abP;        
 	sample.abN			= req.body.abN; 
+	sample.donor_id		= req.body.donor_id;
 
 	// save the user and check for errors
 	sample.save(function(err) {
@@ -251,6 +252,7 @@ module.exports = function(app) {
 		sample.oN        	= req.body.oN;       
 		sample.abP       	= req.body.abP;        
 		sample.abN			= req.body.abN; 
+		sample.donor_id		= req.body.donor_id;
 
 	    // save the user
 	    sample.save(function(err) {

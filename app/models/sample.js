@@ -3,15 +3,15 @@ var crypto        = require('crypto');
 var Schema        = mongoose.Schema;
 
 var SampleSchema    = new Schema({
-    aP   :   { type: Number},
-    bP   :   { type: Number},
-    oP   :   { type: Number},
-    aN   :   { type: Number},
-    bN   :   { type: Number},
-    oN   :   { type: Number},
-    abP  :   { type: Number},
-    abN  :   { type: Number},
-    donor_id    :   { type: Number}, 
+    aP          :   { type: Number},
+    bP          :   { type: Number},
+    oP          :   { type: Number},
+    aN          :   { type: Number},
+    bN          :   { type: Number},
+    oN          :   { type: Number},
+    abP         :   { type: Number},
+    abN         :   { type: Number},
+    donor_id    :   String, 
     created_at  :   { type: Date },
     updated_at  :   { type: Date }
 });
