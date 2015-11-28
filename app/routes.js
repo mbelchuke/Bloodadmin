@@ -277,6 +277,16 @@ module.exports = function(app) {
 	});
     });
 
+    // find all samples with donor_id
+    // get the user with that id (accessed at GET http://localhost:8080/api/users/:user_id)
+    app.get('/api/samples/:donor_id', function(req, res) {
+	Sample.findById(req.params.donor_id, function(err, sample) {
+	    if (err)
+			res.send(err);
+	    res.json(sample);
+	});
+    })
+
     // frontend routes =========================================================
     // route to handle all angular requests
     app.get('*', function(req, res) {
