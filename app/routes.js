@@ -7,6 +7,7 @@ module.exports = function(app) {
     // grab the user model
     var User = require('./models/user');
     var Donor = require('./models/donor');
+    var Sample = require('./models/sample');
 
 
     // api route "GET ALL USERS"
@@ -178,6 +179,95 @@ module.exports = function(app) {
 	Donor.remove({
 	    _id: req.params.donor_id
 	}, function(err, donor) {
+	    if (err)
+		res.send(err);
+
+	    res.json({ message: 'Successfully deleted' });
+	});
+    });
+
+
+    // api route "GET ALL SAMPLES"
+    app.get('/api/samples', function(req, res) {
+
+	// use mongoose to get all samples in the database
+	Sample.find(function(err, samples) {
+	    // if there is an error retrieving, send the error.
+	    // nothing after res.send(err) will execute
+	    if (err){
+			res.send(err);
+	    }else{
+			res.json(samples); // return all samples in JSON format
+	    }
+
+	});
+
+    }),
+
+    // api route "CREATE NEW USER"
+    app.post('/api/samples', function(req, res){
+	var sample          = new Sample();      
+	sample.aP      		= req.body.aP;  
+	sample.bP       	= req.body.bP;    
+	sample.oP        	= req.body.oP;
+	sample.aN       	= req.body.aN;
+	sample.bN       	= req.body.bN; 
+	sample.oN        	= req.body.oN;       
+	sample.abP       	= req.body.abP;        
+	sample.abN			= req.body.abN; 
+
+	// save the user and check for errors
+	sample.save(function(err) {
+	    if (err)
+		res.send(err);
+
+	    res.json({ message: 'Sample created!' });
+	});
+    }),
+
+    // get the user with that id (accessed at GET http://localhost:8080/api/users/:user_id)
+    app.get('/api/samples/:sample_id', function(req, res) {
+	Sample.findById(req.params.sample_id, function(err, sample) {
+	    if (err)
+		res.send(err);
+	    res.json(sample);
+	});
+    })
+
+    // update the user with this id (accessed at PUT http://localhost:8080/api/users/:user_id)
+    app.put('/api/samples/:sample_id', function(req, res) {
+
+	// use our user model to find the user we want
+	Sample.findById(req.params.sample_id, function(err, sample) {
+
+	    if (err)
+		res.send(err);
+
+		sample.aP      		= req.body.aP;  
+		sample.bP       	= req.body.bP;    
+		sample.oP        	= req.body.oP;
+		sample.aN       	= req.body.aN;
+		sample.bN       	= req.body.bN; 
+		sample.oN        	= req.body.oN;       
+		sample.abP       	= req.body.abP;        
+		sample.abN			= req.body.abN; 
+
+	    // save the user
+	    sample.save(function(err) {
+		if (err)
+		    res.send(err);
+
+		res.json({ message: 'Sample updated!' });
+	    });
+
+	});
+    })
+
+    // delete the donor with this id (accessed at DELETE http://localhost:8080/api/donors/:user_id)
+    app.delete('/api/samples/:sample_id', function(req, res) {
+	Sample.remove({
+	    _id: req.params.sample_id
+	}, function(err, sample) {
 	    if (err)
 		res.send(err);
 
